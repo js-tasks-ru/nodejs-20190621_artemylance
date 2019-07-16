@@ -18,7 +18,7 @@ module.exports.productsBySubcategory = async function productsBySubcategory(ctx,
 };
 
 module.exports.productList = async function productList(ctx, next) {
-  const products = await Product.find({});
+  const products = await Product.find();
   ctx.body = {products};
   next();
 };
@@ -35,14 +35,6 @@ module.exports.productById = async function productById(ctx, next) {
     return;
   }
 
-  ctx.body = {product: {
-    id: product._id,
-    title: product.title,
-    description: product.description,
-    images: product.images,
-    price: product.price,
-    category: product.category,
-    subcategory: product.subcategory,
-  }};
+  ctx.body = {product: {...product, id: product._id}};
   next();
 };
